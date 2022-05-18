@@ -1,0 +1,247 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{enumitem}
+\usepackage{tasks}
+
+%s\documentclass[openany]{book}
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+
+
+% Для листинга кода:
+\lstset{ %
+	language=c,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+% Для измененных титулов глав:
+\usepackage{titlesec, blindtext, color} % подключаем нужные пакеты
+\definecolor{gray75}{gray}{0.75} % определяем цвет
+\newcommand{\hsp}{\hspace{20pt}} % длина линии в 20pt
+% titleformat определяет стиль
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+
+% plot
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\begin{document}
+	%\def\chaptername{} % убирает "Глава"
+	\thispagestyle{empty}
+	\begin{titlepage}
+		\noindent \begin{minipage}{0.15\textwidth}
+			\includegraphics[width=\linewidth]{img/b_logo}
+		\end{minipage}
+		\noindent\begin{minipage}{0.9\textwidth}\centering
+			\textbf{Министерство науки и высшего образования Российской Федерации}\\
+			\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+			\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+			\textbf{(национальный исследовательский университет)»}\\
+			\textbf{(МГТУ им. Н.Э.~Баумана)}
+		\end{minipage}
+		
+		\noindent\rule{18cm}{3pt}
+		\newline\newline
+		\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+		\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+		
+		\begin{center}
+			\noindent\begin{minipage}{1.1\textwidth}\centering
+				\Large\textbf{  Отчет по лабораторной работе №4}\newline
+				\textbf{по дисциплине <<Функциональное и логическое}\newline
+				\textbf{~~~программирование>>}\newline\newline
+			\end{minipage}
+		\end{center}
+		
+		\noindent\textbf{Тема} $\underline{\text{Использование управляющих структур, работа со списками}}$\newline\newline
+		\noindent\textbf{Студент} $\underline{\text{Криков А.В.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Группа} $\underline{\text{ИУ7-63Б~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Оценка (баллы)} $\underline{\text{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Преподаватель} $\underline{\text{Толпинская Н.Б., Строганов Ю.В.~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline\newline
+		
+		\begin{center}
+			\vfill
+			Москва~---~\the\year
+			~г.
+		\end{center}
+	\end{titlepage}
+	
+	
+
+
+\chapter*{Практические задания}
+
+\section*{Задание 1}
+Каковы результаты вычисления следующих выражений?
+
+\begin{lstlisting}[label=9, language=lisp]
+(setf lst1 '(a b))
+(setf lst2 '(c d))
+
+(cons lst1 lst2)   ; (a b) . (c d) ->  ((a b) c d)
+(list lst1 lst2)   ; ((a b) (c d))
+(append lst1 lst2) ; (a b c d)
+
+\end{lstlisting}
+	
+	
+
+\section*{Задание 2}
+Каковы результаты вычисления следующих выражений, и почему?
+
+\begin{lstlisting}[label=9, language=lisp]
+(reverse ())         ; NIL
+(last ())            ; NIL
+(reverse '(a))       ; (A)
+(last '(a))          ; (A)
+(reverse '((a b c))) ; ((A B C))
+\end{lstlisting}
+
+\section*{Задание 3}
+Написать, по крайней мере, два варианта функции, которая возвращает последний элемент
+своего списка-аргумента.
+
+\begin{lstlisting}[label=9, language=lisp]
+(defun last1 (a) (first (last a)))
+(defun last2 (a) (first (reverse a)))
+\end{lstlisting}
+
+
+\clearpage
+
+\section*{Задание 4}
+Написать, по крайней мере, два варианта функции, которая возвращает свой список-аргумент без последнего элемента.
+
+\begin{lstlisting}[label=9, language=lisp]
+(defun delete_last (a) 
+(reverse (cdr (reverse a))))
+
+(defun delete_last_2 (a)
+(butlast a))
+
+(defun delete_last_3(a)                      
+  (cond 
+    ((null (cdr a)) nil)                        
+    (t (cons (car a) (reduce_list_3 (cdr a)))
+    ))
+)
+\end{lstlisting}
+
+
+
+\section*{Задание 5}
+Написать простой вариант игры в кости, в котором бросаются две правильные кости. Если
+сумма выпавших очков равна 7 или 11 -- выигрыш, если выпало (1,1) или (6,6) --- игрок право
+снова бросить кости, во всех остальных случаях ход переходит ко второму игроку, но
+запоминается сумма выпавших очков. Если второй игрок не выигрывает абсолютно, то
+выигрывает тот игрок, у которого больше очков. Результат игры и значения выпавших костей
+выводить на экран с помощью функции print.
+
+\begin{lstlisting}[label=9, language=lisp]
+(defun random_score ()
+(list (+ (random 5) 1) (+ (random 5) 1)))
+
+(defun check_sum_to_replay(result)
+(if (or (equal result '(6 6)) (equal result '(1 1))) T NIL))
+
+(defun print_result_to_replay (result)
+(print "Score: ") 
+(prin1 result) 
+(print "The dice will be rerolled...") 
+(print "-------"))
+
+(defun make_player_score ()
+(let* ((result (random_score)))
+    (if (check_sum_to_replay result) 
+        (and (print_result_to_replay result) 
+            (make_player_score)) result)))
+
+(defun sum (result)
+(+ (first result) (second result)))
+
+(defun check_sum_to_win (result)
+(if (or (equal (sum result) 7) 
+(equal (sum result) 11)) T NIL))
+
+(defun print_player (result)
+(print "Score: ")
+(PRIN1 result))
+
+(defun play()
+(print "---First player---")
+(let* ((first_val (make_player_score)))
+    (if (check_sum_to_win first_val) (and (print_player first_val) "First player won!") 
+        (and (print_player first_val)
+            (print "------------------")
+            (print "---Second player---")
+             (let* ((second_val (make_player_score)))
+                (if (check_sum_to_win second_val) (and (print_player second_val) "Second player won!")
+                    (and (print_player second_val) 
+                        (if (>= (sum first_val) (sum second_val)) 
+                            "First player won!" "Second player won!")
+                        )))))))
+					\end{lstlisting}
+
+
+
+\section*{Контрольные вопросы}
+
+\subsection*{1. Синтаксическая форма и хранение программы в памяти}
+
+В \texttt{LISP} формы представления программы и обрабатываемых ею данных одинаковы и представляются в виде \texttt{S-выражений}. 
+Поэтому программы могут обрабатывать и преобразовывать другие программы и даже самих себя. 
+В процессе трансляции можно введенное и сформированное в результате вычислений выражение данных проинтерпретировать в качестве программы и непосредственно выполнить. 
+Так как программа представляет собой S-выражение, в памяти она представлена либо как атом (5 указателей; форма представления атома в памяти), либо списковой ячейкой (бинарный узел; 2 указателя).
+
+\subsection*{2. Трактовка элементов списка}
+
+Первый аргумент списка, который поступает на вход интерпретатору, трактуется как имя функции, остальные -- как аргументы этой функции.
+
+\subsection*{3. Порядок реализации программы}
+
+Программа в языке \texttt{LISP} представляется \texttt{S-выражением}, которое передается интерпретатору -- функции \texttt{eval}, которая выводит последний, полученный после обработки S-выражения, результат.
+Работа функции \texttt{eval} представлена на картинке ниже.
+
+\subsection*{4. Способы определения функций}
+
+С помощью макро определения \texttt{defun} или с использованием Лямбда-нотации (функция без имени).
+	
+\bibliographystyle{utf8gost705u}  % стилевой файл для оформления по ГОСТу
+	
+\bibliography{51-biblio}          % имя библиографической базы (bib-файла)
+	
+\end{document}

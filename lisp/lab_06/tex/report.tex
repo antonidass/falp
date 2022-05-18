@@ -1,0 +1,242 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+%\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{enumitem}
+\usepackage{tasks}
+
+%s\documentclass[openany]{book}
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+
+
+% Для листинга кода:
+\lstset{ %
+	language=c,                 % выбор языка для подсветки (здесь это С)
+	basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+	numbers=left,               % где поставить нумерацию строк (слева\справа)
+	numberstyle=\tiny,           % размер шрифта для номеров строк
+	stepnumber=1,                   % размер шага между двумя номерами строк
+	numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+	showspaces=false,            % показывать или нет пробелы специальными отступами
+	showstringspaces=false,      % показывать или нет пробелы в строках
+	showtabs=false,             % показывать или нет табуляцию в строках
+	frame=single,              % рисовать рамку вокруг кода
+	tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+	captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+	breaklines=true,           % автоматически переносить строки (да\нет)
+	breakatwhitespace=false, % переносить строки только если есть пробел
+	escapeinside={\#*}{*)}   % если нужно добавить комментарии в коде
+}
+
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+% Для измененных титулов глав:
+\usepackage{titlesec, blindtext, color} % подключаем нужные пакеты
+\definecolor{gray75}{gray}{0.75} % определяем цвет
+\newcommand{\hsp}{\hspace{20pt}} % длина линии в 20pt
+% titleformat определяет стиль
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+
+% plot
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\begin{document}
+	%\def\chaptername{} % убирает "Глава"
+	\thispagestyle{empty}
+	\begin{titlepage}
+		\noindent \begin{minipage}{0.15\textwidth}
+			\includegraphics[width=\linewidth]{img/b_logo}
+		\end{minipage}
+		\noindent\begin{minipage}{0.9\textwidth}\centering
+			\textbf{Министерство науки и высшего образования Российской Федерации}\\
+			\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+			\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+			\textbf{(национальный исследовательский университет)»}\\
+			\textbf{(МГТУ им. Н.Э.~Баумана)}
+		\end{minipage}
+		
+		\noindent\rule{18cm}{3pt}
+		\newline\newline
+		\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+		\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline
+		
+		\begin{center}
+			\noindent\begin{minipage}{1.1\textwidth}\centering
+				\Large\textbf{  Отчет по лабораторной работе №6}\newline
+				\textbf{по дисциплине <<Функциональное и логическое}\newline
+				\textbf{~~~программирование>>}\newline\newline
+			\end{minipage}
+		\end{center}
+		
+		\noindent\textbf{Тема} $\underline{\text{Использование функционалов}}$\newline\newline
+		\noindent\textbf{Студент} $\underline{\text{Криков А.В.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Группа} $\underline{\text{ИУ7-63Б~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Оценка (баллы)} $\underline{\text{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Преподаватель} $\underline{\text{Толпинская Н.Б., Строганов Ю.В.~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline\newline
+		
+		\begin{center}
+			\vfill
+			Москва~---~\the\year
+			~г.
+		\end{center}
+	\end{titlepage}
+	
+	
+
+
+\chapter*{Практические задания}
+
+	
+\section*{Задание 1}
+Напишите функцию, которая уменьшает на 10 все числа из списка-аргумента этой функции
+
+\begin{lstlisting}[language=Lisp]
+(defun minus-10 (lst)
+	(mapcar (lambda (e) (if (numberp e) (- e 10) e)) lst))  
+\end{lstlisting}
+
+
+\section*{Задание 2}
+Напишите функцию, которая умножает на заданное число-аргумент все числа из заданного списка-аргумента, когда
+
+\begin{enumerate}
+	\item Все элементы списка --- числа,
+	\item Элементы списка --- любые объекты.
+\end{enumerate}
+
+\begin{lstlisting}[language=Lisp]
+(defun mult-all (lst n)
+	(mapcar (lambda (e) (if (numberp e) (* e n) e)) lst))
+  
+	
+(defun mult-all-deep (lst n)
+	(mapcar (lambda (e) (cond ((numberp e) (* e n))
+				  ((listp e) (mult-all-deep e n))
+				  (T e)))
+		lst))
+			  
+\end{lstlisting}
+
+
+
+\section*{Задание 3}
+Написать функцию, которая по своему списку-аргументу lst определяет является ли он палиндромом (то есть равны ли lst и (reverse lst)).
+\begin{lstlisting}[language=Lisp]
+(defun my-reverse (lst)
+	(reduce (lambda (res e) (cons e res)) lst :initial-value ()))
+	
+(defun palindromp (lst)
+	(equal lst (my-reverse lst)))
+	
+\end{lstlisting}
+
+
+\section*{Задание 4}
+Написать предикат set-equal, который возвращает t, если два его множествааргумента содержат одни и те же элементы, порядок которых не имеет значения.
+
+\begin{lstlisting}[language=Lisp]
+(defun in-set (el lst)
+	(reduce (lambda (a b) (or a b))
+		(mapcar (lambda (e) (equal el e)) lst)))
+  
+(defun my-subsetp (l1 l2)
+	(reduce (lambda (a b) (and a b))
+		(mapcar (lambda (e) (in-set e l2)) l1)))
+  
+(defun set-equal (l1 l2)
+	(and (my-subsetp l1 l2) (my-subsetp l2 l1)))  
+\end{lstlisting}
+
+
+
+\section*{Задание 5}
+Написать функцию которая получает как аргумент список чисел, а возвращает список квадратов этих чисел в том же порядке.
+
+\begin{lstlisting}[language=Lisp]
+(defun sqr-lst (lst)
+	(mapcar (lambda (e) (* e e)) lst)) 
+\end{lstlisting}
+
+
+\section*{Задание 6}
+Напишите функцию, \texttt{select-between}, которая из списка-аргумента, содержащего только числа, выбирает только те, которые расположены между двумя указанными границамиаргументами и возвращает их в виде списка (упорядоченного по возрастанию списка чисел (+ 2 балла)).
+
+\begin{lstlisting}[language=Lisp]
+(defun select-between (lst n1 n2)
+	(mapcan (lambda (e) (and (< n1 e n2) (list e)))
+		lst))
+  
+(defun select-between-sorted (lst n1 n2)
+	(sort (select-between lst n1 n2) #'<))
+
+\end{lstlisting}
+
+
+
+
+
+
+\section*{Задание 7}
+Написать функцию, вычисляющую декартово произведение двух своих списковаргументов.
+
+
+\begin{lstlisting}[language=Lisp]
+(defun decart-mult (l1 l2)
+	(mapcan (lambda (e1)
+		  (mapcar (lambda (e2)
+				(list e1 e2))
+			  l2))
+		l1))
+\end{lstlisting}
+
+
+
+\section*{Задание 8}
+Почему так реализовано \texttt{reduce}, в чем причина? \texttt{(reduce \#'+ ()) -> 0}
+
+\subsection*{Решение}
+Функция \texttt{+} --- функционал, который при 0 количестве аргументов возвращает значение 0. Если подать на вход \texttt{reduce} функцию, которая не может обработать 0 аргументов, то вызов \texttt{reduce} с пустым списком в качестве второго аргумента вернет ошибку (\texttt{invalid number of arguments: 0}). При этом, если подано более одного аргумента, то \texttt{reduce} выполняет действия:
+
+\begin{enumerate}
+	\item Сохраняет первый элемент списка в область памяти;
+	\item Для всех остальных элементов списка выполняет переданную в качестве первого аргумента функцию, подавая на вход 2 аргумента и сохраняя результат в \texttt{acc}.
+\end{enumerate}
+
+
+
+
+\section*{Задание 9}
+Пусть \texttt{list-of-list} список, состоящий из списков. Написать функцию, которая вычисляет сумму длин всех элементов \texttt{list-of-list}, т.е. например для аргумента ((1 2) (3 4)) -> 4.
+
+\begin{lstlisting}[language=Lisp]
+(defun sum-of-len (lst)
+  (reduce (lambda (res e) (+ res (length e)))
+	  lst
+	  :initial-value 0))
+\end{lstlisting}
+
+
+\bibliographystyle{utf8gost705u}  % стилевой файл для оформления по ГОСТу
+	
+\bibliography{51-biblio}          % имя библиографической базы (bib-файла)
+	
+\end{document}
